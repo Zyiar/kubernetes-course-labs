@@ -1,0 +1,12 @@
+# svc-no-match.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: whoami-service-zero
+spec:
+  selector:
+    app: whoami-zero  # No pods will have this label
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
