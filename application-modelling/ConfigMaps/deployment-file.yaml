@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: whoami-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: whoami
+  template:
+    metadata:
+      labels:
+        app: whoami
+    spec:
+      containers:
+        - name: whoami
+          image: containous/whoami  # Use your app's image
+          ports:
+            - containerPort: 80
+          env:
+            - name: Configuration__Release
+              valueFrom:
+                configMapKeyRef:
+                  name: config-release
+                  key: Configuration__Release
+            - name: Features_DarkMode
+              valueFrom:
+                configMapKeyRef:
+                  name: config-features
+                  key: Features.DarkMode
